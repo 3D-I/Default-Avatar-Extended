@@ -1,0 +1,23 @@
+imports:
+    - { resource: gravatar.yml }
+
+services:
+    threedi.dae.listener:
+        class: threedi\dae\event\listener
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@user'
+            - '@threedi.dae.dae'
+        tags:
+            - { name: event.listener }
+
+    threedi.dae.dae:
+        class: threedi\dae\core\dae
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@log'
+            - '@user'
+            - '@ext.manager'
+            - '@path_helper'

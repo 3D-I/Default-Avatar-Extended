@@ -1,0 +1,69 @@
+{% if not INCLUDED_DAE_ACP_CSS %}
+	{% INCLUDECSS '@threedi_dae/dae_acp.css' %}
+	{% set INCLUDED_DAE_ACP_CSS = true %}
+{% endif %}
+
+{% INCLUDE 'overall_header.html' %}
+
+<h1>{{ lang('ACP_DAE_TITLE') }}</h1>
+
+{% if S_ERRORS %}
+{# Non invasive error reporting #}
+<fieldset>
+	<legend>{{ lang('ACP_DAE_ERRORS') }}</legend>
+	<p class="error">
+		{{ ERRORS_MSG }}
+	</p>
+</fieldset>
+{% endif %}
+
+<form id="threedi_dae" method="post" action="{U_ACTION}">
+	<fieldset class="dae-acp-outer">
+		<fieldset class="dae-acp-middle">
+			<fieldset class="dae-acp-inner">
+				<legend>{{ lang('DAE_DEFAULT_AVATAR') }}</legend>
+				<div class="dae-acp-rules">{{ lang('DAE_DEFAULT_AVATAR_EXPLAIN') }}</div>
+				{# 
+					0 == false == never, 1 == true == default, 2 == true == always
+				#}
+				</dl>
+				<dl>
+					<dt>
+						<label for="threedi_default_avatar_extended">{{ lang('DAE_DEFAULT_AVATAR_NEVER') }}{{ lang('COLON') }}</label><br />{{ lang('DAE_DEFAULT_AVATAR_NEVER_EXPLAIN') }}
+					</dt>
+					<dd>
+						<input type="radio" class="radio" name="threedi_default_avatar_extended" value="0" {% if DAE_DEFAULT_AVATAR == 0 %}checked="checked"{% endif %} />  {{ lang('DAE_DEFAULT_AVATAR_NO_THANKS') }}
+					</dd>
+				</dl>
+
+				<dl>
+					<dt>
+						<label for="threedi_default_avatar_extended">{{ lang('DAE_DEFAULT_AVATAR_DEFAULT') }}{{ lang('COLON') }}</label><br />{{ lang('DAE_DEFAULT_AVATAR_DEFAULT_EXPLAIN') }}
+					</dt>
+					<dd>
+						<input type="radio" class="radio" name="threedi_default_avatar_extended" value="1" {% if DAE_DEFAULT_AVATAR == 1 %}checked="checked"{% endif %} />  {{ lang('DAE_DEFAULT_AVATAR_YES_USE') }}
+					</dd>
+				</dl>
+
+				<dl>
+					<dt>
+						<label for="threedi_default_avatar_extended">{{ lang('DAE_DEFAULT_AVATAR_REPLACE') }}{{ lang('COLON') }}</label><br />{{ lang('DAE_DEFAULT_AVATAR_REPLACE_EXPLAIN') }}
+					</dt>
+					<dd>
+						<input type="radio" class="radio" name="threedi_default_avatar_extended" value="2" {% if DAE_DEFAULT_AVATAR == 2 %}checked="checked"{% endif %} /> {{ lang('DAE_DEFAULT_AVATAR_YES_REPLACE') }}
+					</dd>
+				</dl>
+			</fieldset>
+		</fieldset>
+	</fieldset>
+
+	<fieldset class="dae-acp-submit">
+		<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="submit" name="preview" value="{L_PREVIEW}" />
+		</fieldset>
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% INCLUDE 'overall_footer.html' %}
