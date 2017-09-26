@@ -12,47 +12,29 @@ namespace threedi\dae\core;
 
 class dae
 {
-	/** @var \phpbb\auth\auth */
-	protected $auth;
-
 	/** @var \phpbb\config\config */
 	protected $config;
-
-	/** @var \phpbb\log */
-	protected $log;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var \phpbb\extension\manager "Extension Manager" */
-	protected $ext_manager;
 
 	/** @var \phpbb\path_helper */
 	protected $path_helper;
 
+	/** @var \phpbb\user */
+	protected $user;
+
 	/**
 		* Constructor
 		*
-		* @param \phpbb\auth\auth			$auth			Authentication object
 		* @param \phpbb\config\config		$config			Config Object
-		* @param \phpbb\log\log				$log			phpBB log
-		* @param \phpbb\user				$user			User object
-		* @param \phpbb\extension\manager	$ext_manager	Extension manager object
 		* @param \phpbb\path_helper			$path_helper	Path helper object
+		* @param \phpbb\user				$user			User object
 		* @access public
 	*/
 
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\log\log $log, \phpbb\user $user, \phpbb\extension\manager $ext_manager, \phpbb\path_helper $path_helper)
+	public function __construct(\phpbb\config\config $config, \phpbb\path_helper $path_helper, \phpbb\user $user)
 	{
-		$this->auth				=	$auth;
 		$this->config			=	$config;
-		$this->log				=	$log;
-		$this->user				=	$user;
-		$this->ext_manager		=	$ext_manager;
 		$this->path_helper		=	$path_helper;
-
-		$this->ext_path			=	$this->ext_manager->get_extension_path('threedi/dae', true);
-		$this->ext_path_web		=	$this->path_helper->update_web_root_path($this->ext_path);
+		$this->user				=	$user;
 	}
 
 	/**
@@ -62,7 +44,8 @@ class dae
 	 */
 	public function style_avatar()
 	{
-		return ($this->ext_path_web . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
+		return ($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/'
+ . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
 	}
 
 	/**
@@ -72,7 +55,7 @@ class dae
 	 */
 	public function style_avatar_is_true()
 	{
-		return file_exists(self::style_avatar());
+		return file_exists($this->style_avatar());
 	}
 
 	/**
@@ -103,15 +86,15 @@ class dae
 	public function check_point_avatar_img()
 	{
 		/* If Img avatar filename mistmach error, state is false and return */
-		if (!self::style_avatar_is_true())
+		if (!$this->style_avatar_is_true())
 		{
-			self::update_img_config_to_false();
+			$this->update_img_config_to_false();
 			return;
 		}
 		else
 		{
 			/* Check passed, let's set it back to true. */
-			self::update_img_config_to_true();
+			$this->update_img_config_to_true();
 		}
 	}
 }
