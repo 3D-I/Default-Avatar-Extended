@@ -19,5 +19,6 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACL_A_DAE_ADMIN'		=> 'Allow administering Default Avatar Extended',
+	'ACL_A_DAE_ADMIN'	=> 'Allow administering Default Avatar Extended',
+	'ACL_U_DAE_USER'	=> 'Allow to use Default Avatar Extended',
 ));

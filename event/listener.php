@@ -87,6 +87,10 @@ class listener implements EventSubscriberInterface
 				'lang'	=> 'ACL_A_DAE_ADMIN',
 				'cat'	=> 'misc',
 			),
+			'u_dae_user' => array(
+				'lang'	=> 'ACL_U_DAE_USER',
+				'cat'	=> 'misc',
+			),
 		);
 		$event['permissions'] = $permissions;
 	}
@@ -121,7 +125,7 @@ class listener implements EventSubscriberInterface
 		/**
 		 * Check for DAE permissions and filename consistency (again) prior to run the code.
 		 */
-		if (($this->auth->acl_get('a_dae_admin')) && (bool) $this->config['threedi_default_avatar_exists'])
+		if (($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user') && (bool) $this->config['threedi_default_avatar_exists']))
 		{
 			/**
 			 * the magic starts here
