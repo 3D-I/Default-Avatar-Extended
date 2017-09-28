@@ -120,12 +120,13 @@ class listener implements EventSubscriberInterface
 		 * If Img avatar filename mistmach error..
 		 * state is false and return, else go on..
 		 */
-		$this->dae->check_point_avatar_img();
-
+		//$this->dae->check_point_avatar_img();
+var_dump($this->dae->style_avatar_is_true());
 		/**
+		 * If Img avatar filename mistmach error state is false and return, else go on..
 		 * Check for DAE permissions and filename consistency (again) prior to run the code.
 		 */
-		if (($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user') && (bool) $this->config['threedi_default_avatar_exists']))
+		if ($this->dae->style_avatar_is_true() && ($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user') && (bool) $this->config['threedi_default_avatar_exists']))
 		{
 			/**
 			 * the magic starts here
@@ -136,7 +137,7 @@ class listener implements EventSubscriberInterface
 			 * if no avatar is set, and configuration is default avatar as default
 			 * or configuration is set to use user avatar always if available
 			 */
-			if ( ((empty($event_row['avatar']) || ((int) $this->config['threedi_default_avatar_extended'] == 2))) )
+			if (empty($event_row['avatar']) || ((int) $this->config['threedi_default_avatar_extended'] == 2))
 			{
 				/**
 				 * Uses the maximum avatar size possible within the specified configuration

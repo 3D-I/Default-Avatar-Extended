@@ -55,27 +55,7 @@ class dae
 	 */
 	public function style_avatar_is_true()
 	{
-		return file_exists($this->style_avatar());
-	}
-
-	/**
-	 * Update config to false
-	 *
-	 * @return void
-	 */
-	public function update_img_config_to_false()
-	{
-		$this->config->set('threedi_default_avatar_exists', 0);
-	}
-
-	/**
-	 * Update config to true
-	 *
-	 * @return void
-	 */
-	public function update_img_config_to_true()
-	{
-		$this->config->set('threedi_default_avatar_exists', 1);
+		return (file_exists($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png') && file_exists($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_medium.png') && file_exists($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_full.png')) ? true : false;
 	}
 
 	/**
@@ -96,5 +76,25 @@ class dae
 			/* Check passed, let's set it back to true. */
 			$this->update_img_config_to_true();
 		}
+	}
+
+	/**
+	 * Update config to false
+	 *
+	 * @return void
+	 */
+	public function update_img_config_to_false()
+	{
+		$this->config->set('threedi_default_avatar_exists', 0);
+	}
+
+	/**
+	 * Update config to true
+	 *
+	 * @return void
+	 */
+	public function update_img_config_to_true()
+	{
+		$this->config->set('threedi_default_avatar_exists', 1);
 	}
 }
