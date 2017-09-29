@@ -21,7 +21,7 @@ class dae_module
 
 	public function main($id, $mode)
 	{
-		global $config, $request, $template, $user, $phpbb_container;
+		global $config, $request, $template, $user, $phpbb_container, $phpbb_log;
 
 		$dae = $phpbb_container->get('threedi.dae.dae');
 
@@ -31,10 +31,19 @@ class dae_module
 		add_form_key('threedi/dae');
 
 		/**
-		 * If Img avatar filename mistmach error..
-		 * state is false and return, else go on..
+		 * If Img filename(s) error..
+		 * log the error and go dormant
 		 */
 		$dae->check_point_avatar_img();
+
+		/* You changed filenames? No party! */
+		if (!$config['threedi_default_avatar_exists'])
+		{
+			/* Log the error. */
+			$phpbb_log->add('critical', $user->data['user_id'], $user->ip, 'DAE_AVATAR_IMG_INVALID');
+
+			trigger_error($user->lang('DAE_AVATAR_IMG_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+		}
 
 		/* Do this now and forget */
 		$errors = array();
@@ -46,14 +55,21 @@ class dae_module
 				trigger_error('FORM_INVALID', E_USER_WARNING);
 			}
 
-			/* You changed filenames. no party! */
+			/**
+			 * If Img filename(s) error...log the error
+			 */
+			$dae->check_point_avatar_img();
+
+			/* You changed filenames? No party! */
 			if (!$config['threedi_default_avatar_exists'])
 			{
 				$errors[] = $user->lang('DAE_AVATAR_IMG_INVALID');
+				/* Log the error. */
+				$phpbb_log->add('critical', $user->data['user_id'], $user->ip, 'DAE_AVATAR_IMG_INVALID');
 			}
 
 			/* No errors? Great, let's go. */
-			if ( !count($errors) )
+			if (!count($errors))
 			{
 				$config->set('threedi_default_avatar_extended', $request->variable('threedi_default_avatar_extended', (int) $config['threedi_default_avatar_extended']));
 
