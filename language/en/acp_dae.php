@@ -32,5 +32,5 @@ $lang = array_merge($lang, array(
 	'DAE_DEFAULT_AVATAR_NO_THANKS'			=>	'Do not use it.',
 	// Errors
 	'ACP_DAE_ERRORS'						=>	'Errors explaination',
-	'DAE_AVATAR_IMG_INVALID'				=>	'One or more of the Avatar filenames are wrong or totally missing. Check your relative extension/style <strong>Images</strong> folder.<br><br>Avatar filenames must be:<br><strong>dae_noavatar.png</strong> (32x32) - <strong>dae_noavatar_medium.png</strong> (64x64) - <strong>dae_noavatar_full.png</strong> (128x128).<br><br>Extension is in dorman status, fix the issue and it will automatically wake-up on the next submit.'
+	'DAE_AVATAR_IMG_INVALID'				=>	'One or more of the Avatar filenames are wrong or totally missing.<br>Check your relative extension/style <strong>Images</strong> folder.<br><br>Avatar filenames must be:<br><strong>dae_noavatar.png</strong> (32x32) - <strong>dae_noavatar_medium.png</strong> (64x64) - <strong>dae_noavatar_full.png</strong> (128x128).<br><br>Extension ACP it is now in a dormant status.<br>Fix the issue and it will automatically wake-up at runtime.'
 ));
