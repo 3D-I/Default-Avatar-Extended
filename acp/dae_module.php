@@ -32,7 +32,7 @@ class dae_module
 
 		/**
 		 * If Img avatar filename mistmach error..
-		 * state is false and return, else go on..
+		 * state is false and  go toward the next check in
 		 */
 		$dae->check_point_avatar_img();
 
@@ -53,7 +53,7 @@ class dae_module
 			}
 
 			/* No errors? Great, let's go. */
-			if ( !count($errors) )
+			if (!count($errors))
 			{
 				$config->set('threedi_default_avatar_extended', $request->variable('threedi_default_avatar_extended', (int) $config['threedi_default_avatar_extended']));
 

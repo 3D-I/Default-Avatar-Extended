@@ -65,36 +65,13 @@ class dae
 	 */
 	public function check_point_avatar_img()
 	{
-		/* If Img avatar filename mistmach error, state is false and return */
-		if (!$this->style_avatar_is_true())
+		if ($this->style_avatar_is_true())
 		{
-			$this->update_img_config_to_false();
-			return;
+			$this->config->set('threedi_default_avatar_exists', 1);
 		}
 		else
 		{
-			/* Check passed, let's set it back to true. */
-			$this->update_img_config_to_true();
+			$this->config->set('threedi_default_avatar_exists', 0);
 		}
-	}
-
-	/**
-	 * Update config to false
-	 *
-	 * @return void
-	 */
-	public function update_img_config_to_false()
-	{
-		$this->config->set('threedi_default_avatar_exists', 0);
-	}
-
-	/**
-	 * Update config to true
-	 *
-	 * @return void
-	 */
-	public function update_img_config_to_true()
-	{
-		$this->config->set('threedi_default_avatar_exists', 1);
 	}
 }

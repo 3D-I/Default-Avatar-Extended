@@ -105,7 +105,7 @@ class listener implements EventSubscriberInterface
 		/**
 		 * If the ACP config is NEVER do nothing and return
 		 */
-		if ((int) $this->config['threedi_default_avatar_extended'] == 0)
+		if (!$this->config['threedi_default_avatar_extended'])
 		{
 			return;
 		}
@@ -116,20 +116,22 @@ class listener implements EventSubscriberInterface
 		{
 			return;
 		}
+
 		/**
-		 * If Img avatar filename mistmach error..
-		 * state is false and return, else go on..
+		 * If Img avatar filename(s) error
+		 * state is false and  go on.. to the next check
 		 */
-		//$this->dae->check_point_avatar_img();
-var_dump($this->dae->style_avatar_is_true());
+		$this->dae->check_point_avatar_img();
+
 		/**
 		 * If Img avatar filename mistmach error state is false and return, else go on..
 		 * Check for DAE permissions and filename consistency (again) prior to run the code.
 		 */
-		if ($this->dae->style_avatar_is_true() && ($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user') && (bool) $this->config['threedi_default_avatar_exists']))
+		if ($this->config['threedi_default_avatar_exists'] && $this->config['threedi_default_avatar_extended'] && ($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user')))
 		{
 			/**
-			 * the magic starts here
+			 * Check passed, Img avatar filename(s) are correct
+			 * All of the magic lies here
 			 */
 			$event_row = $event['row'];
 			/**
@@ -137,7 +139,7 @@ var_dump($this->dae->style_avatar_is_true());
 			 * if no avatar is set, and configuration is default avatar as default
 			 * or configuration is set to use user avatar always if available
 			 */
-			if (empty($event_row['avatar']) || ((int) $this->config['threedi_default_avatar_extended'] == 2))
+			if (empty($event_row['avatar']) || $this->config['threedi_default_avatar_extended'] == 2)
 			{
 				/**
 				 * Uses the maximum avatar size possible within the specified configuration
