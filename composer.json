@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "Multifunctional default avatar",
 	"homepage": "",
-	"version": "1.0.0-rc2",
-	"time": "2017-09-27",
+	"version": "1.0.0-rc3",
+	"time": "2017-09-30",
 	"license": "GPL-2.0",
 	"authors": [
 		{
