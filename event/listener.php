@@ -139,7 +139,7 @@ class listener implements EventSubscriberInterface
 			 * if no avatar is set, and configuration is default avatar as default
 			 * or configuration is set to use user avatar always if available
 			 */
-			if (empty($event_row['avatar']) || $this->config['threedi_default_avatar_extended'] == 2)
+			if (empty($event_row['avatar']) || (int) $this->config['threedi_default_avatar_extended'] == 2)
 			{
 				/**
 				 * Uses the maximum avatar size possible within the specified configuration
