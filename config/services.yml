@@ -16,5 +16,5 @@ services:
         class: threedi\dae\core\dae
         arguments:
             - '@config'
-            - '@path_helper'
             - '@user'
+            - '%core.root_path%ext/threedi/dae/'
