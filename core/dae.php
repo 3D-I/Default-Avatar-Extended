@@ -15,26 +15,26 @@ class dae
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\path_helper */
-	protected $path_helper;
-
 	/** @var \phpbb\user */
 	protected $user;
+
+	/** @var string */
+	protected $ext_root_path;
 
 	/**
 		* Constructor
 		*
 		* @param \phpbb\config\config		$config			Config Object
-		* @param \phpbb\path_helper			$path_helper	Path helper object
 		* @param \phpbb\user				$user			User object
+		* @param string						$ext_root_path	Path to DAE extension root
 		* @access public
 	*/
 
-	public function __construct(\phpbb\config\config $config, \phpbb\path_helper $path_helper, \phpbb\user $user)
+	public function __construct(\phpbb\config\config $config, \phpbb\user $user, $ext_root_path)
 	{
 		$this->config			=	$config;
-		$this->path_helper		=	$path_helper;
 		$this->user				=	$user;
+		$this->ext_root_path	=	$ext_root_path;
 	}
 
 	/**
@@ -44,8 +44,7 @@ class dae
 	 */
 	public function style_avatar()
 	{
-		return ($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/'
- . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
+		return ($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
 	}
 
 	/**
@@ -55,7 +54,7 @@ class dae
 	 */
 	public function style_avatar_is_true()
 	{
-		return (file_exists($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png') && file_exists($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_medium.png') && file_exists($this->path_helper->get_web_root_path() . 'ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_full.png')) ? true : false;
+		return (file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png') && file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_medium.png') && file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_full.png')) ? true : false;
 	}
 
 	/**
@@ -72,7 +71,6 @@ class dae
 		else
 		{
 			$this->config->set('threedi_default_avatar_exists', 0);
-			$this->config->set('threedi_default_avatar_extended', 0); // Roll back to NONE (Acp)
 		}
 	}
 }
