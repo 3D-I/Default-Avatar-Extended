@@ -103,13 +103,13 @@ class listener implements EventSubscriberInterface
 	public function dae_default_avatar($event)
 	{
 		/**
-		 * If Img avatar filename(s) error
-		 * state is false and  go on.. to the next check
+		 * If Img avatar filename(s) are wrong
+		 * state it as false and  go on to the next check
 		 */
 		$this->dae->check_point_avatar_img();
 
 		/**
-		 * If the ACP config is NEVER do nothing and return
+		 * If the ACP config is NEVER PR Img avatar filename(s) are wrong do nothing and return
 		 */
 		if (!$this->config['threedi_default_avatar_exists'] || !$this->config['threedi_default_avatar_extended'])
 		{
@@ -124,7 +124,6 @@ class listener implements EventSubscriberInterface
 		}
 
 		/**
-		 * If Img avatar filename mistmach error state is false and return, else go on..
 		 * Check for DAE permissions and filename consistency (again) prior to run the code.
 		 */
 		if ($this->config['threedi_default_avatar_extended'] && ($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user')))

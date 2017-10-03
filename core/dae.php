@@ -72,6 +72,7 @@ class dae
 		else
 		{
 			$this->config->set('threedi_default_avatar_exists', 0);
+			$this->config->set('threedi_default_avatar_extended', 0); // Roll back to NONE (Acp)
 		}
 	}
 }
