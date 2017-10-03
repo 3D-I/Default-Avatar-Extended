@@ -18,9 +18,6 @@ class dae
 	/** @var \phpbb\user */
 	protected $user;
 
-	/** @var string */
-	protected $ext_root_path;
-
 	/**
 		* Constructor
 		*
@@ -30,11 +27,10 @@ class dae
 		* @access public
 	*/
 
-	public function __construct(\phpbb\config\config $config, \phpbb\user $user, $ext_root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\user $user)
 	{
 		$this->config			=	$config;
 		$this->user				=	$user;
-		$this->ext_root_path	=	$ext_root_path;
 	}
 
 	/**
@@ -44,7 +40,7 @@ class dae
 	 */
 	public function style_avatar()
 	{
-		return ($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
+		return (generate_board_url() . '/ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
 	}
 
 	/**
@@ -54,7 +50,9 @@ class dae
 	 */
 	public function style_avatar_is_true()
 	{
-		return (file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png') && file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_medium.png') && file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_full.png')) ? true : false;
+		$ext_path = generate_board_url() . '/ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar';
+
+		return (file_exists($ext_path . '.png') && file_exists($ext_path . '_medium.png') && file_exists($ext_path . '_full.png')) ? true : false;
 	}
 
 	/**
