@@ -115,6 +115,7 @@ class listener implements EventSubscriberInterface
 		{
 			return;
 		}
+
 		/**
 		 * We are in the UCP/ACP, so we should not change the selected avatar
 		 */

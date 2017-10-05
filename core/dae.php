@@ -44,7 +44,7 @@ class dae
 	 */
 	public function style_avatar()
 	{
-		return ($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
+		return (generate_board_url() . '/ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png');
 	}
 
 	/**
@@ -54,7 +54,9 @@ class dae
 	 */
 	public function style_avatar_is_true()
 	{
-		return (file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar.png') && file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_medium.png') && file_exists($this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar_full.png')) ? true : false;
+		$ext_path = $this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar';
+
+		return (file_exists($ext_path . '.png') && file_exists($ext_path . '_medium.png') && file_exists($ext_path . '_full.png')) ? true : false;
 	}
 
 	/**
@@ -64,13 +66,13 @@ class dae
 	 */
 	public function check_point_avatar_img()
 	{
-		if ($this->style_avatar_is_true())
+		if (!$this->style_avatar_is_true())
 		{
-			$this->config->set('threedi_default_avatar_exists', 1);
+			$this->config->set('threedi_default_avatar_exists', 0);
 		}
 		else
 		{
-			$this->config->set('threedi_default_avatar_exists', 0);
+			$this->config->set('threedi_default_avatar_exists', 1);
 		}
 	}
 }
