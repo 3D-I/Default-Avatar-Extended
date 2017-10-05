@@ -11,4 +11,3 @@ services:
             - [set_name, [avatar.driver.gravatar]]
         tags:
             - { name: avatar.driver }
-
