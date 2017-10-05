@@ -10,6 +10,8 @@
 
 namespace threedi\dae\event;
 
+use \threedi\dae\ext;
+
 /**
  * @ignore
  */
@@ -115,6 +117,7 @@ class listener implements EventSubscriberInterface
 		{
 			return;
 		}
+
 		/**
 		 * We are in the UCP/ACP, so we should not change the selected avatar
 		 */
@@ -143,18 +146,21 @@ class listener implements EventSubscriberInterface
 				 * Uses the maximum avatar size possible within the specified configuration
 				 * It uses the next biggest default avatar between those three available (all square)
 				 */
-				$width = $height = min((int) $this->config['avatar_max_width'], (int) $this->config['avatar_max_height'], 128);
-				$avatar_sfx = ($width > 64) ? '_full' : (($width > 32) ? '_medium' : '');
+				$width = $height = min((int) $this->config['avatar_max_width'], (int) $this->config['avatar_max_height'], ext::DAE_L);
+				$avatar_sfx = ($width > ext::DAE_M) ? '_full' : (($width > ext::DAE_S) ? '_medium' : '');
+
 				/**
 				 * Amend filename to be used now, based on our above conditions
 				 */
 				$src = 'src="' . ((string) substr_replace($this->dae->style_avatar(), $avatar_sfx, strrpos($this->dae->style_avatar(), '.'), 0)) . '"';
+
 				/**
 				 * Avatar size soft-reduced to fit in the specified avatar forum sizes
 				 */
 				$width = 'width="'. ((int) $width) .'"';
 				$height = 'height="'. ((int) $height) .'"';
 				$alt = 'alt="'. $this->user->lang('DEFAULT_AVATAR') . '"';
+
 				/**
 				 * Let's concatenate and replace - That's all.
 				 */

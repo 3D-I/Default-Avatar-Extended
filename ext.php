@@ -15,6 +15,11 @@ namespace threedi\dae;
  */
 class ext extends \phpbb\extension\base
 {
+	/* Define constants */
+	const DAE_S = '32';
+	const DAE_M = '64';
+	const DAE_L = '128';
+
 	/**
 	 * Check whether the extension can be enabled.
 	 * Provides meaningful(s) error message(s) and the back-link on failure.
