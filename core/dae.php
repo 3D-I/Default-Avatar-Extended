@@ -18,6 +18,9 @@ class dae
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var string */
+	protected $ext_root_path;
+
 	/**
 		* Constructor
 		*
@@ -27,10 +30,11 @@ class dae
 		* @access public
 	*/
 
-	public function __construct(\phpbb\config\config $config, \phpbb\user $user)
+	public function __construct(\phpbb\config\config $config, \phpbb\user $user, $ext_root_path)
 	{
 		$this->config			=	$config;
 		$this->user				=	$user;
+		$this->ext_root_path	=	$ext_root_path;
 	}
 
 	/**
@@ -50,7 +54,7 @@ class dae
 	 */
 	public function style_avatar_is_true()
 	{
-		$ext_path = generate_board_url() . '/ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar';
+		$ext_path = $this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar';
 
 		return (file_exists($ext_path . '.png') && file_exists($ext_path . '_medium.png') && file_exists($ext_path . '_full.png')) ? true : false;
 	}
@@ -62,13 +66,13 @@ class dae
 	 */
 	public function check_point_avatar_img()
 	{
-		if ($this->style_avatar_is_true())
+		if (!$this->style_avatar_is_true())
 		{
-			$this->config->set('threedi_default_avatar_exists', 1);
+			$this->config->set('threedi_default_avatar_exists', 0);
 		}
 		else
 		{
-			$this->config->set('threedi_default_avatar_exists', 0);
+			$this->config->set('threedi_default_avatar_exists', 1);
 		}
 	}
 }
