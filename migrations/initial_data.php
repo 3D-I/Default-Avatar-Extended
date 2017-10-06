@@ -25,7 +25,7 @@ class initial_data extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			array('config.add', array('threedi_default_avatar_extended', 0)), // No active as default
+			array('config.add', array('threedi_default_avatar_extended', 0)),
 			array('config.add', array('threedi_default_avatar_exists', 1)), // avatars are correct on first install
 			array('config.add', array('threedi_default_avatar_version', '1.1.0-rc1')),
 
