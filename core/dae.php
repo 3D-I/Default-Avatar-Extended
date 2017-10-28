@@ -22,14 +22,8 @@ class dae
 	protected $ext_root_path;
 
 	/**
-		* Constructor
-		*
-		* @param \phpbb\config\config		$config			Config Object
-		* @param \phpbb\user				$user			User object
-		* @param string						$ext_root_path	Path to DAE extension root
-		* @access public
-	*/
-
+	 * Constructor
+	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\user $user, $ext_root_path)
 	{
 		$this->config			=	$config;
@@ -66,11 +60,18 @@ class dae
 	 */
 	public function check_point_avatar_img()
 	{
-		if (!$this->style_avatar_is_true())
+		/**
+		 * If Img filename mismatch error
+		 * and the config is TRUE then state is FALSE
+		 */
+		if (!$this->style_avatar_is_true() && $this->config['threedi_default_avatar_exists'])
 		{
 			$this->config->set('threedi_default_avatar_exists', 0);
 		}
-		else
+		/**
+		 * Second pass, if no error let's set the config to TRUE if FALSE.
+		 */
+		if ($this->style_avatar_is_true() && !$this->config['threedi_default_avatar_exists'])
 		{
 			$this->config->set('threedi_default_avatar_exists', 1);
 		}
