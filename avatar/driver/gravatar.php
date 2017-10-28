@@ -15,6 +15,14 @@ namespace threedi\dae\avatar\driver;
 */
 class gravatar extends \phpbb\avatar\driver\gravatar
 {
+	public function __construct(\phpbb\config\config $config, \FastImageSize\FastImageSize $imagesize = null, $phpbb_root_path, $php_ext, \phpbb\path_helper $path_helper, \phpbb\cache\driver\driver_interface $cache = null)
+	{
+		if ($imagesize)
+		{
+			$this->imagesize = $imagesize;
+		}
+	}
+
 	/**
 	* {@inheritdoc}
 	*/
