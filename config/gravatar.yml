@@ -8,7 +8,6 @@ services:
             - '%core.php_ext%'
             - '@path_helper'
             - '@cache.driver'
-
         calls:
             - [set_name, [avatar.driver.gravatar]]
         tags:
