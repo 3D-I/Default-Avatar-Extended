@@ -3,7 +3,7 @@ services:
         class: threedi\dae\avatar\driver\gravatar
         arguments:
             - '@config'
-            - '@?upload_imagesize'
+            - '@?upload.imagesize'
             - '%core.root_path%'
             - '%core.php_ext%'
             - '@path_helper'
