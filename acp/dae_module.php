@@ -30,21 +30,6 @@ class dae_module
 		$this->page_title = $user->lang('ACP_DAE_TITLE');
 		add_form_key('threedi/dae');
 
-		/**
-		 * If Img filename(s) error..
-		 * log the error and go dormant
-		 */
-		$dae->check_point_avatar_img();
-
-		/* You changed filenames? No party! */
-		if (!$config['threedi_default_avatar_exists'])
-		{
-			/* Log the error. */
-			$phpbb_log->add('critical', $user->data['user_id'], $user->ip, 'DAE_AVATAR_IMG_INVALID');
-
-			trigger_error($user->lang('DAE_AVATAR_IMG_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
-		}
-
 		/* Do this now and forget */
 		$errors = array();
 
@@ -79,7 +64,7 @@ class dae_module
 
 		$template->assign_vars(array(
 			'S_ERRORS'				=> ($errors) ? true : false,
-			'ERRORS_MSG'			=> ($errors) ? implode('<br /><br />', $errors) : '',
+			'ERRORS_MSG'			=> implode('<br /><br />', $errors),
 			'U_ACTION'				=> $this->u_action,
 			'DAE_DEFAULT_AVATAR'	=> (int) $config['threedi_default_avatar_extended'], // 0 = never, 1 = default, 2 = always
 		));

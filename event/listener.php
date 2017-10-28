@@ -35,15 +35,8 @@ class listener implements EventSubscriberInterface
 	protected $dae;
 
 	/**
-		* Constructor
-		*
-		* @param \phpbb\auth\auth			$auth			Authentication object
-		* @param \phpbb\config\config		$config			Config Object
-		* @param \phpbb\user				$user			User object
-		* @param threedi\dae\core\dae		$dae			Methods to be used by Class
-		* @access public
-	*/
-
+	 * Constructor
+	 */
 	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\user $user, \threedi\dae\core\dae	$dae)
 	{
 		$this->auth		=	$auth;
