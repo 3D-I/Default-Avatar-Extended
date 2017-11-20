@@ -32,7 +32,7 @@ class dae
 	}
 
 	/**
-	 * Returns the absolute URL to the image file
+	 * Returns the absolute URL to the image file for each user style
 	 *
 	 * @return string	URL
 	 */
@@ -52,7 +52,7 @@ class dae
 	}
 
 	/**
-	 * Returns whether the basic avatar img exists
+	 * Returns whether the avatar imgs exist
 	 *
 	 * @return	bool
 	 */

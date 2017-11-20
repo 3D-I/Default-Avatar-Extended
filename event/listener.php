@@ -37,7 +37,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 */
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\user $user, \threedi\dae\core\dae	$dae)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\user $user, \threedi\dae\core\dae $dae)
 	{
 		$this->auth		=	$auth;
 		$this->config	=	$config;
@@ -116,7 +116,7 @@ class listener implements EventSubscriberInterface
 		/**
 		 * Check for DAE permissions and activation prior to run the code.
 		 */
-		if ($this->config['threedi_default_avatar_extended'] && ($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user')))
+		if ( $this->config['threedi_default_avatar_extended'] && ($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user')) )
 		{
 			/**
 			 * All of the magic lies here
@@ -126,7 +126,7 @@ class listener implements EventSubscriberInterface
 			/**
 			 * Check for avatar and ACP settings first:
 			 * if no avatar and configuration has been set to avatar as default
-			 * or to replace always the avatars
+			 * or if the avatars must be always replaced
 			 */
 			if (empty($event_row['avatar']) || (int) $this->config['threedi_default_avatar_extended'] == 2)
 			{
@@ -138,16 +138,16 @@ class listener implements EventSubscriberInterface
 				$avatar_sfx = ($width > ext::DAE_M) ? '_full' : (($width > ext::DAE_S) ? '_medium' : '');
 
 				/**
-				 * Amend filename to be used now, based on our above conditions
+				 * Now amend the filename to be used, based on our above conditions
 				 */
 				$src = 'src="' . ((string) substr_replace($this->dae->check_point_avatar_img(), $avatar_sfx, strrpos($this->dae->check_point_avatar_img(), '.'), 0)) . '"';
 
 				/**
 				 * Avatar size soft-reduced to fit in the specified avatar forum sizes
 				 */
-				$width = 'width="'. ((int) $width) .'"';
-				$height = 'height="'. ((int) $height) .'"';
-				$alt = 'alt="'. $this->user->lang('DEFAULT_AVATAR') . '"';
+				$width = 'width="' . ((int) $width) . '"';
+				$height = 'height="' . ((int) $height) . '"';
+				$alt = 'alt="' . $this->user->lang('DEFAULT_AVATAR') . '"';
 
 				/**
 				 * Let's concatenate and replace - That's all.
