@@ -98,15 +98,9 @@ class listener implements EventSubscriberInterface
 	public function dae_default_avatar($event)
 	{
 		/**
-		 * If Img avatar filename(s) are wrong
-		 * state configs as false and  go on to the next check
+		 * If DAE has been not yet activated in ACP do nothing and return
 		 */
-		$this->dae->check_point_avatar_img();
-
-		/**
-		 * If the ACP config is NEVER OR Img avatar filename('s) are wrong do nothing and return
-		 */
-		if (!$this->config['threedi_default_avatar_exists'] || !$this->config['threedi_default_avatar_extended'])
+		if (!$this->config['threedi_default_avatar_extended'])
 		{
 			return;
 		}
@@ -120,7 +114,7 @@ class listener implements EventSubscriberInterface
 		}
 
 		/**
-		 * Check for DAE permissions prior to run the code.
+		 * Check for DAE permissions and activation prior to run the code.
 		 */
 		if ($this->config['threedi_default_avatar_extended'] && ($this->auth->acl_get('a_dae_admin') || $this->auth->acl_get('u_dae_user')))
 		{
@@ -128,6 +122,7 @@ class listener implements EventSubscriberInterface
 			 * All of the magic lies here
 			 */
 			$event_row = $event['row'];
+
 			/**
 			 * Check for avatar and ACP settings first:
 			 * if no avatar and configuration has been set to avatar as default
@@ -145,7 +140,7 @@ class listener implements EventSubscriberInterface
 				/**
 				 * Amend filename to be used now, based on our above conditions
 				 */
-				$src = 'src="' . ((string) substr_replace($this->dae->style_avatar(), $avatar_sfx, strrpos($this->dae->style_avatar(), '.'), 0)) . '"';
+				$src = 'src="' . ((string) substr_replace($this->dae->check_point_avatar_img(), $avatar_sfx, strrpos($this->dae->check_point_avatar_img(), '.'), 0)) . '"';
 
 				/**
 				 * Avatar size soft-reduced to fit in the specified avatar forum sizes

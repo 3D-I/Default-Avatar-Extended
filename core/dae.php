@@ -18,17 +18,17 @@ class dae
 	/** @var \phpbb\user */
 	protected $user;
 
-	/** @var string */
-	protected $ext_root_path;
+	/* @var string phpBB root path */
+	protected $root_path;
 
 	/**
 	 * Constructor
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\user $user, $ext_root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\user $user, $root_path)
 	{
-		$this->config			=	$config;
-		$this->user				=	$user;
-		$this->ext_root_path	=	$ext_root_path;
+		$this->config		=	$config;
+		$this->user			=	$user;
+		$this->root_path	=	$root_path;
 	}
 
 	/**
@@ -42,15 +42,27 @@ class dae
 	}
 
 	/**
+	 * Returns the absolute URL to the image file in the prosilver style
+	 *
+	 * @return void
+	 */
+	public function style_avatar_prosilver()
+	{
+		return (generate_board_url() . '/ext/threedi/dae/styles/prosilver/theme/images/dae_noavatar.png');
+	}
+
+	/**
 	 * Returns whether the basic avatar img exists
 	 *
 	 * @return	bool
 	 */
 	public function style_avatar_is_true()
 	{
-		$ext_path = $this->ext_root_path . 'styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar';
+		$dae_rootpath = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $this->root_path;
 
-		return (file_exists($ext_path . '.png') && file_exists($ext_path . '_medium.png') && file_exists($ext_path . '_full.png')) ? true : false;
+		$dae_img_path = $dae_rootpath . 'ext/threedi/dae/styles/' . rawurlencode($this->user->style['style_path']) . '/theme/images/dae_noavatar';
+
+		return (file_exists($dae_img_path . '.png') && file_exists($dae_img_path . '_medium.png') && file_exists($dae_img_path . '_full.png')) ? true : false;
 	}
 
 	/**
@@ -60,20 +72,17 @@ class dae
 	 */
 	public function check_point_avatar_img()
 	{
-		/**
-		 * If Img filename mismatch error
-		 * and the config is TRUE then state is FALSE
-		 */
-		if (!$this->style_avatar_is_true() && $this->config['threedi_default_avatar_exists'])
+		if ( ($this->user->style['style_path'] != 'prosilver') && $this->style_avatar_is_true() )
 		{
-			$this->config->set('threedi_default_avatar_exists', 0);
+			return $this->style_avatar();
 		}
-		/**
-		 * Second pass, if no error let's set the config to TRUE if FALSE.
-		 */
-		if ($this->style_avatar_is_true() && !$this->config['threedi_default_avatar_exists'])
+		else if ( ($this->user->style['style_path'] != 'prosilver') && !$this->style_avatar_is_true() )
 		{
-			$this->config->set('threedi_default_avatar_exists', 1);
+			return $this->style_avatar_prosilver();
+		}
+		else
+		{
+			return $this->user->lang('DEFAULT_AVATAR');
 		}
 	}
 }

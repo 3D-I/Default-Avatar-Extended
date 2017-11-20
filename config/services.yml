@@ -17,4 +17,4 @@ services:
         arguments:
             - '@config'
             - '@user'
-            - '%core.root_path%ext/threedi/dae/'
+            - '%core.root_path%'
