@@ -72,17 +72,13 @@ class dae
 	 */
 	public function check_point_avatar_img()
 	{
-		if ( ($this->user->style['style_path'] != 'prosilver') && $this->style_avatar_is_true() )
+		if ( ($this->user->style['style_path'] !== 'prosilver') && $this->style_avatar_is_true() )
 		{
 			return $this->style_avatar();
 		}
-		else if ( ($this->user->style['style_path'] != 'prosilver') && !$this->style_avatar_is_true() )
-		{
-			return $this->style_avatar_prosilver();
-		}
 		else
 		{
-			return $this->user->lang('DEFAULT_AVATAR');
+			return $this->style_avatar_prosilver();
 		}
 	}
 }
