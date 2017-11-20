@@ -34,7 +34,7 @@ class dae
 	/**
 	 * Returns the absolute URL to the image file
 	 *
-	 * @return void
+	 * @return string	URL
 	 */
 	public function style_avatar()
 	{
@@ -44,7 +44,7 @@ class dae
 	/**
 	 * Returns the absolute URL to the image file in the prosilver style
 	 *
-	 * @return void
+	 * @return string	URL
 	 */
 	public function style_avatar_prosilver()
 	{
@@ -68,7 +68,7 @@ class dae
 	/**
 	 * Avatar IMG check-point
 	 *
-	 * @return void
+	 * @return string	Formatted URL, language string otherwise.
 	 */
 	public function check_point_avatar_img()
 	{
