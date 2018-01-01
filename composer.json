@@ -2,8 +2,8 @@
 	"name": "threedi/dae",
 	"type": "phpbb-extension",
 	"description": "Multifunctional Default Avatar - Multi Style",
-	"version": "1.2.1",
-	"time": "2017-11-20",
+	"version": "1.2.2",
+	"time": "2018-01-01",
 	"license": "GPL-2.0",
 	"authors": [
 		{
