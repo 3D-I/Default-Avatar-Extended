@@ -21,7 +21,7 @@ class dae_module
 
 	public function main($id, $mode)
 	{
-		global $config, $request, $template, $user, $phpbb_container, $phpbb_log, $db, $phpbb_root_path;
+		global $config, $request, $template, $user, $phpbb_log, $db, $phpbb_root_path;
 
 		$dae_rootpath = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path;
 
