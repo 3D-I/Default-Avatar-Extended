@@ -26,7 +26,8 @@ class initial_data extends \phpbb\db\migration\migration
 	{
 		return array(
 			array('config.add', array('threedi_default_avatar_extended', 0)),
-			array('config.add', array('threedi_default_avatar_version', '1.2.1')),
+			array('config.add', array('threedi_default_avatar_exists', 1)), // avatars are correct on first install
+			array('config.add', array('threedi_default_avatar_version', '1.2.0')),
 
 			/* Permissions now */
 			array('permission.add', array('u_dae_user')),

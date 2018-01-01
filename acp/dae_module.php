@@ -23,8 +23,6 @@ class dae_module
 	{
 		global $config, $request, $template, $user, $phpbb_container, $phpbb_log, $db, $phpbb_root_path;
 
-		$dae = $phpbb_container->get('threedi.dae.dae');
-
 		$dae_rootpath = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path;
 
 		$user->add_lang_ext('threedi/dae', 'acp_dae');
